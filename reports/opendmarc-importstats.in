@@ -10,7 +10,7 @@
 ## ran the job.
 
 ## setup
-statsdb="/var/tmp/dmarc.dat"
+statsdb=$(awk '/^\s*HistoryFile / { print $2; }' @SYSCONFDIR@/opendmarc.conf)
 # OPENDMARC_PASSWORD="password"; export OPENDMARC_PASSWORD
 
 if [ -s $statsdb ]
