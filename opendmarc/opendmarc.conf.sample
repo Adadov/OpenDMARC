@@ -432,3 +432,33 @@
 ##  the named userid unless an alternate group is specified.
 #
 # UserID opendmarc
+
+##  ReportInterval int
+##  	default (none)
+#
+# ReportInterval 86400
+
+##  DbServer string
+##  	default (none)
+#
+# DbServer localhost
+
+##  DbPort string
+##  	default (none)
+#
+# DbPort 3306
+
+##  DbDatabase string
+##  	default (none)
+#
+# DbDatabase opendmarc
+
+##  DbUsername string
+##  	default (none)
+#
+# DbUsername opendmarc 
+
+##  DbPasswd string
+##  	default (none)
+#
+# DbPasswd opendmarc

@@ -25,8 +25,11 @@ use POSIX;
 use MIME::Base64;
 use Net::SMTP;
 use Time::Local;
+use Config::Auto;
 
 require DBD::@SQL_BACKEND@;
+
+my $cnf 	  = Config::Auto::parse("@SYSCONFDIR@/opendmarc.conf");
 
 require HTTP::Request;
 
@@ -126,12 +129,12 @@ my $dbi_a;
 my $dbi_hash;
 
 # DB parameters
-my $def_dbhost    = "localhost";
-my $def_dbname    = "opendmarc";
-my $def_dbuser    = "opendmarc";
-my $def_dbpasswd  = "opendmarc";
-my $def_dbport    = "3306";
-my $def_interval  = "86400";
+my $def_dbhost    = $cnf->{DbServer};
+my $def_dbname    = $cnf->{DbDatabase};
+my $def_dbuser    = $cnf->{DbUsername};
+my $def_dbpasswd  = $cnf->{DbPasswd};
+my $def_dbport    = $cnf->{DbPort};
+my $def_interval  = $cnf->{ReportInterval};
 my $dbhost;
 my $dbname;
 my $dbuser;

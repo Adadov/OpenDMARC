@@ -19,10 +19,14 @@ use Fcntl qw(:flock);
 use Getopt::Long;
 use POSIX;
 use JSON;
+use Config::Auto;
 
 require DBD::@SQL_BACKEND@;
 
+
 # general
+my $cnf 	  = Config::Auto::parse("@SYSCONFDIR@/opendmarc.conf");
+
 my $progname      = basename($0);
 my $version       = "@VERSION@";
 my $verbose       = 0;
@@ -30,12 +34,12 @@ my $helponly      = 0;
 my $showversion   = 0;
 
 # DB parameters
-my $def_dbhost    = "localhost";
-my $def_dbname    = "opendmarc";
-my $def_dbuser    = "opendmarc";
-my $def_dbpasswd  = "opendmarc";
-my $def_dbport    = "3306";
-my $def_interval  = "86400";
+my $def_dbhost    = $cnf->{DbServer};
+my $def_dbname    = $cnf->{DbDatabase};
+my $def_dbuser    = $cnf->{DbUsername};
+my $def_dbpasswd  = $cnf->{DbPasswd};
+my $def_dbport    = $cnf->{DbPort};
+my $def_interval  = $cnf->{ReportInterval};
 my $def_inputfh   = *STDIN;
 my $dbhost;
 my $dbname;

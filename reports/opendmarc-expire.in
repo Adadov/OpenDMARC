@@ -18,7 +18,11 @@ use Getopt::Long;
 use IO::Handle;
 use POSIX;
 
+use Config::Auto;
+
 require DBD::@SQL_BACKEND@;
+
+my $cnf 	  = Config::Auto::parse("@SYSCONFDIR@/opendmarc.conf");
 
 # general
 my $progname      = basename($0);
@@ -36,11 +40,11 @@ my $dbi_h;
 my $dbi_a;
 
 # DB parameters
-my $def_dbhost    = "localhost";
-my $def_dbname    = "opendmarc";
-my $def_dbuser    = "opendmarc";
-my $def_dbpasswd  = "opendmarc";
-my $def_dbport    = "3306";
+my $def_dbhost    = $cnf->{DbServer};
+my $def_dbname    = $cnf->{DbDatabase};
+my $def_dbuser    = $cnf->{DbUsername};
+my $def_dbpasswd  = $cnf->{DbPasswd};
+my $def_dbport    = $cnf->{DbPort};
 my $dbhost;
 my $dbname;
 my $dbuser;
