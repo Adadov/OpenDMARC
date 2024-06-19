@@ -2,6 +2,8 @@
 
 This listing shows the versions of the OpenDMARC package, the date of
 release, and a summary of the changes in that release.
+1.5.1		2024/06/18
+	Add many patches see github
 
 1.4.2		2021/12/19
 	Fix issue #175: Don't reject a multi-valued From when all of the

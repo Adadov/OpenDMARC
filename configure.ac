@@ -20,8 +20,8 @@ AC_PREREQ(2.61)
 # Package version
 #
 m4_define([VERSION_RELEASE], 1)
-m4_define([VERSION_MAJOR_REV], 4)
-m4_define([VERSION_MINOR_REV], 2)
+m4_define([VERSION_MAJOR_REV], 5)
+m4_define([VERSION_MINOR_REV], 1)
 m4_define([VERSION_PATCH], 0)
 
 #
@@ -31,7 +31,7 @@ m4_define([VERSION_PATCH], 0)
 #
 
 m4_define([LIBVERSION_CURRENT], 2)
-m4_define([LIBVERSION_REVISION], 3)
+m4_define([LIBVERSION_REVISION], 4)
 m4_define([LIBVERSION_AGE], 0)
 
 #
@@ -60,7 +60,7 @@ AC_CHECK_TYPES([ns_type], [], [], [[
 #ifdef HAVE_ARPA_NAMESER_H
 #  include <arpa/nameser.h> /* DNS HEADER struct */
 #endif
-#ifdef HAVE_NETDB_H
+#ifdef HAVE_NETDbH
 #  include <netdb.h>
 #endif
 #include <resolv.h>
@@ -167,7 +167,7 @@ m4_define([AC_LANG_CALL], [AC_LANG_PROGRAM([#ifdef HAVE_SYS_TYPES_H
 #ifdef HAVE_ARPA_NAMESER_H
 #  include <arpa/nameser.h> /* DNS HEADER struct */
 #endif
-#ifdef HAVE_NETDB_H
+#ifdef HAVE_NETDbH
 #  include <netdb.h>
 #endif
 #include <resolv.h>],
@@ -186,7 +186,7 @@ m4_define([AC_LANG_CALL], [AC_LANG_PROGRAM([#ifdef HAVE_SYS_TYPES_H
 #ifdef HAVE_ARPA_NAMESER_H
 #  include <arpa/nameser.h> /* DNS HEADER struct */
 #endif
-#ifdef HAVE_NETDB_H
+#ifdef HAVE_NETDbH
 #  include <netdb.h>
 #endif
 #include <resolv.h>],
