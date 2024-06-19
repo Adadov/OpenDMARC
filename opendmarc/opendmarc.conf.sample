@@ -462,3 +462,24 @@
 ##  	default (none)
 #
 # DbPasswd opendmarc
+
+##  SmtpServer string
+##  	default (none)
+#
+SmtpServer localhost
+
+##  SmtpPort int
+##  	default (25)
+#
+SmtpPort 25
+
+##  SmtpSsl string
+##  	default (none)
+#
+# SmtpSsl opendmarc
+
+##  SmtpPasswd string
+##  	default (none)
+#
+# SmtpPasswd opendmarc
+

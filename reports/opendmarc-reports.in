@@ -17,7 +17,7 @@ use Switch;
 use DBI;
 use File::Basename;
 use File::Temp;
-use Net::Domain qw(hostfqdn hostdomain);
+use Sys::Hostname qw(hostname);
 use Getopt::Long;
 use IO::Handle;
 use IO::Compress::Gzip qw(gzip);
@@ -128,13 +128,16 @@ my $dbi_s2;
 my $dbi_a;
 my $dbi_hash;
 
+
 # DB parameters
-my $def_dbhost    = $cnf->{DbServer};
-my $def_dbname    = $cnf->{DbDatabase};
-my $def_dbuser    = $cnf->{DbUsername};
-my $def_dbpasswd  = $cnf->{DbPasswd};
-my $def_dbport    = $cnf->{DbPort};
-my $def_interval  = $cnf->{ReportInterval};
+my $def_dbhost    = $cnf->{DbServer} if defined($cnf->{DbServer});
+my $def_dbname    = $cnf->{DbDatabase} if defined($cnf->{DbDatabase});
+my $def_dbuser    = $cnf->{DbUsername} if defined($cnf->{DbUsername});
+my $def_dbpasswd  = $cnf->{DbPasswd} if defined($cnf->{DbPasswd});
+my $def_dbport    = $cnf->{DbPort} if defined($cnf->{DbPort});
+my $def_interval  = $cnf->{ReportInterval} if defined($cnf->{ReportInterval});
+my $hostname      = hostname();
+$hostname         = $cnf->{AuthServID} if defined($cnf->{AuthServID});
 my $dbhost;
 my $dbname;
 my $dbuser;
@@ -143,11 +146,20 @@ my $dbport;
 
 my $dbscheme     = "@SQL_BACKEND@";
 
-my $repdom       = hostdomain();
+my $repdom       = $hostname;
+$repdom =~ s/`hostname -s`//;
 my $repemail     = "postmaster@" . $repdom;
 
-my $smtp_server  = '127.0.0.1';
-my $smtp_port    = 25;
+my $smtp_server = "localhost";
+my $smtp_port = 25;
+my $smtp_ssl;
+my $smtp_user;
+my $smtp_passwd;
+$smtp_server  = $cnf->{SmtpServer} if defined($cnf->{SmtpServer});
+$smtp_port    = $cnf->{SmtpPort} if defined($cnf->{SmtpPort});
+$smtp_ssl     = $cnf->{SmtpSsl} if defined($cnf->{SmtpSsl});
+$smtp_user    = $cnf->{SmtpUser} if defined($cnf->{SmtpUser});
+$smtp_passwd  = $cnf->{SmtpPasswd} if defined($cnf->{SmtpPasswd});
 my $smtp;
 
 my $answer;
@@ -400,15 +412,19 @@ if ($verbose)
 # 	-- update "last sent" timestamp
 #
 
-$smtp = Net::SMTP->new($smtp_server,
+$smtp = Net::SMTPS->new($smtp_server,
                        'Port' => $smtp_port,
-                       'Hello' => hostfqdn());
+		       'doSSL' => $smtp_ssl,
+                       'Hello' => $hostname,
+		       );
 if (!defined($smtp))
 {
 	print STDERR "$progname: open SMTP server $smtp_server:$smtp_port failed\n";
 	exit(1);
 }
-
+if (defined($smtp_user)) {
+	$smtp->auth($smtp_user, $smtp_passwd);
+}
 foreach (@$domainset)
 {
 	$domain = $_->[0];
