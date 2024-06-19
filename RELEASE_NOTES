@@ -2,6 +2,11 @@
 
 This listing shows the versions of the OpenDMARC package, the date of
 release, and a summary of the changes in that release.
+1.5.3		2024/06/19
+	Fix: libopendmarc version number missing
+	Fix: null pointer dereference vulnerability
+	Deprecated fgrep: replaced with grep -F
+
 1.5.2		2024/06/19
 	Add config support for report tools
 	Fix wrong hostname in opendmarc-reports
