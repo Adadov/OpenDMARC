@@ -78,7 +78,7 @@ AC_SUBST([HEX_VERSION])
 # https://github.com/trusteddomainproject/OpenDMARC/archive/rel-opendmarc-1-4-0-Beta1.tar.gz
 # Beta tag is passed to RPM by downstream packagers and expanded there.
 #
-GITHUB_VERSION=$(printf %d-%d-%d VERSION_RELEASE VERSION_MAJOR_REV VERSION_MINOR_REV)
+GITHUB_VERSION=$(printf %d.%d.%d VERSION_RELEASE VERSION_MAJOR_REV VERSION_MINOR_REV)
 AC_SUBST([GITHUB_VERSION])
 
 
@@ -548,6 +548,7 @@ AC_CONFIG_FILES([ Makefile
 	contrib/spec/Makefile
 		contrib/spec/opendmarc.spec
 	db/Makefile
+	libopendmarc/dmarc.h
 	libopendmarc/Makefile
 	libopendmarc/tests/Makefile
 	libopendmarc/tests/testfiles/Makefile
